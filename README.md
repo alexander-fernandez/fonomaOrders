@@ -8,3 +8,4 @@
     $ source env/bin/activate
     ...Or just select the virtual environment right in your favorite IDE. Then...
     $ pip install -r requirements.txt
+    $ uvicorn main:app --host 0.0.0.0 --port 8080 --reload
