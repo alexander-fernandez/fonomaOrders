@@ -4,6 +4,7 @@ import redis
 
 pool = redis.ConnectionPool(host='red-ch90qs5gk4qeoo1326pg', port=6379, db=0)
 redis = redis.Redis(connection_pool=pool)
+redis.set("Used", 0)
 
 
 class Order(BaseModel):
