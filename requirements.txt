@@ -4,3 +4,4 @@ httpx
 starlette
 pytest
 uvicorn
+redis

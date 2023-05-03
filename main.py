@@ -1,5 +1,10 @@
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
+import redis
+
+pool = redis.ConnectionPool(host='red-ch90qs5gk4qeoo1326pg', port=6379, db=0)
+redis = redis.Redis(connection_pool=pool)
+redis.set("Used", 0)
 
 
 class Order(BaseModel):
@@ -47,5 +52,11 @@ async def root():
 
 @app.post("/solution")
 async def process_orders(payload: BodyInput) -> str:
+    key = str(payload.json())
+    if redis.exists(key):
+        last = int(redis.get("Used"))
+        redis.set("Used", str(last + 1))
+        return redis.get(key)
+    redis.set(key, str(payload.all_revenue(payload.criterion)))
     output = payload.all_revenue(payload.criterion)
     return str(output)
