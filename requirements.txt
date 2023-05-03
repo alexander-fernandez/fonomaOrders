@@ -1,2 +1,6 @@
 fastapi
+pydantic
+httpx
+starlette
+pytest
 uvicorn
